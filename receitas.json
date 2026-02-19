@@ -1,0 +1,62 @@
+{
+"sinonimos": {
+"carne": ["carne moída", "carne picada", "bife", "carne de vaca", "patinho", "alcatra", "moída"],
+"macarrão": ["massa", "esparguete", "penne", "fusilli", "talharim", "miojo"],
+"pão": ["pães", "baguete", "bisnaga", "pão francês", "pão de forma"],
+"leite": ["leite integral", "leite desnatado", "leite de vaca"],
+"açúcar": ["acucar", "açucar", "adocante"],
+"manteiga": ["margarina", "gordura"],
+"ovo": ["ovos"],
+"chocolate": ["cacau", "nescau", "toddy", "achocolatado"]
+},
+"receitas": [
+{
+"nome": "Omelete Francês",
+"ingredientes": ["ovo", "sal", "manteiga"],
+"preparo": "Bata bem 2 ou 3 ovos com sal. Derreta manteiga na frigideira, despeje os ovos e mexa as bordas para o centro. Dobre quando o fundo firmar.",
+"tempo": "5 min"
+},
+{
+"nome": "Macarrão Alho e Óleo",
+"ingredientes": ["macarrão", "alho", "azeite", "sal"],
+"preparo": "Cozinhe a massa. Doure o alho no azeite e misture ao macarrão com um pouco da água do cozimento.",
+"tempo": "12 min"
+},
+{
+"nome": "Rabanada Clássica",
+"ingredientes": ["pão", "leite", "ovo", "açúcar"],
+"preparo": "Passe as fatias de pão no leite e depois nos ovos batidos. Frite em óleo quente (ou manteiga) até dourar. Passe em uma mistura de açúcar e canela.",
+"tempo": "15 min"
+},
+{
+"nome": "Pudim de Pão",
+"ingredientes": ["pão", "leite", "açúcar", "ovo"],
+"preparo": "Bata no liquidificador o pão amanhecido, leite, açúcar e ovos. Despeje em fôrma caramelizada e cozinhe em banho-maria por 40 min.",
+"tempo": "50 min"
+},
+{
+"nome": "Brigadeiro de Panela",
+"ingredientes": ["leite condensado", "chocolate", "manteiga"],
+"preparo": "Misture tudo em fogo baixo. Mexa sem parar até que a mistura desgrude do fundo da panela. Deixe esfriar e coma de colher.",
+"tempo": "10 min"
+},
+{
+"nome": "Doce de Leite Caseiro",
+"ingredientes": ["leite", "açúcar"],
+"preparo": "Leve ao fogo baixo o leite e o açúcar. Mexa de vez em quando por cerca de 45 minutos até reduzir e ganhar cor de caramelo e textura cremosa.",
+"tempo": "50 min"
+},
+{
+"nome": "Bolo Simples de Leite",
+"ingredientes": ["farinha", "açúcar", "leite", "ovo", "manteiga"],
+"preparo": "Bata os ovos, açúcar e manteiga. Adicione leite e farinha aos poucos. Asse em forno médio (180°C) por 35 minutos.",
+"tempo": "45 min"
+},
+{
+"nome": "Bolo de Chocolate",
+"ingredientes": ["farinha", "chocolate", "açúcar", "leite", "ovo"],
+"preparo": "Misture os secos e depois adicione os líquidos. Bata bem até ficar homogêneo. Asse por 40 minutos em fôrma untada.",
+"tempo": "50 min"
+}
+]
+}
