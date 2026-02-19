@@ -1,30 +1,16 @@
 /**
  * Chef Local - Versão para GitHub Pages (Resiliente)
- * "Flavor": Se a cozinha está silenciosa demais, vamos fazer barulho para descobrir o porquê!
+ * "Flavor": Organizando a bancada para que nada falte na hora de cozinhar!
  */
 
-console.log("Chef Local: Script iniciado..."); // Log imediato para confirmar execução
+console.log("Chef Local: Script carregado no navegador.");
 
 let baseReceitas = [];
 let sinonimos = {};
 let meusIngredientes = [];
 
-// Elementos do DOM
-const form = document.getElementById('form-ingrediente');
-const input = document.getElementById('ingrediente-input');
-const listaTags = document.getElementById('lista-tags');
-const gridReceitas = document.getElementById('grid-receitas');
-const statusBusca = document.getElementById('status-busca');
-const contador = document.getElementById('contador-receitas');
-const btnLimpar = document.getElementById('btn-limpar-tudo');
-
-// Garantir que o Bootstrap Modal existe antes de tentar instanciar
-let bootstrapModal;
-try {
-    bootstrapModal = new bootstrap.Modal(document.getElementById('recipeModal'));
-} catch (e) {
-    console.error("Erro ao carregar Bootstrap Modal:", e);
-}
+// Variáveis de elementos que serão preenchidas ao carregar a página
+let form, input, listaTags, gridReceitas, statusBusca, contador, btnLimpar, bootstrapModal;
 
 /**
  * Carrega os dados do arquivo estático receitas.json
@@ -32,7 +18,6 @@ try {
 async function carregarDados() {
     console.log("Chef Local: Tentando carregar receitas.json...");
     try {
-        // Usamos um timestamp para evitar cache do navegador durante testes
         const resposta = await fetch(`receitas.json?v=${new Date().getTime()}`); 
         
         if (!resposta.ok) {
@@ -100,6 +85,8 @@ function renderizarTags() {
 }
 
 function buscarReceitas() {
+    if (!gridReceitas) return;
+
     if (meusIngredientes.length === 0) {
         gridReceitas.innerHTML = '';
         statusBusca.innerText = "Aguardando ingredientes...";
@@ -177,12 +164,30 @@ function renderizarInterface() {
     buscarReceitas();
 }
 
-// Inicialização com logs de progresso
-window.onload = () => {
-    console.log("Chef Local: Página carregada. Iniciando fetch de dados...");
+/**
+ * Inicialização robusta: aguarda o DOM e mapeia elementos
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Chef Local: DOM pronto. Mapeando elementos...");
+    
+    form = document.getElementById('form-ingrediente');
+    input = document.getElementById('ingrediente-input');
+    listaTags = document.getElementById('lista-tags');
+    gridReceitas = document.getElementById('grid-receitas');
+    statusBusca = document.getElementById('status-busca');
+    contador = document.getElementById('contador-receitas');
+    btnLimpar = document.getElementById('btn-limpar-tudo');
+
+    try {
+        const modalElement = document.getElementById('recipeModal');
+        if (modalElement) bootstrapModal = new bootstrap.Modal(modalElement);
+    } catch (e) {
+        console.error("Erro ao inicializar Modal:", e);
+    }
+
     carregarDados().then(() => {
         if (form) form.addEventListener('submit', adicionarIngrediente);
         if (btnLimpar) btnLimpar.onclick = () => { meusIngredientes = []; renderizarInterface(); };
         renderizarInterface();
     });
-};
+});

@@ -10,21 +10,19 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
         <!-- Ficheiro CSS Externo -->
         <link rel="stylesheet" href="style.css">
-        <!-- Ficheiro JS Externo -->
-        <script src="script.js"></script>
-</head>
-<body>
-
-    <div class="container">
-        <header class="header-section">
-            <div class="chef-icon">👨‍🍳</div>
-            <h1 class="fw-black mb-1" style="font-size: 3rem; letter-spacing: -1px;">Chef Local</h1>
-            <p class="text-muted fw-medium">Pratos principais, doces e bolos com o que tem em casa.</p>
-        </header>
-
-        <div class="card main-card">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h6 class="text-uppercase fw-black text-warning small tracking-widest mb-0">O seu Inventário</h6>
+    </head>
+    <body>
+        
+        <div class="container">
+            <header class="header-section">
+                <div class="chef-icon">👨‍🍳</div>
+                <h1 class="fw-black mb-1" style="font-size: 3rem; letter-spacing: -1px;">Chef Local</h1>
+                <p class="text-muted fw-medium">Pratos principais, doces e bolos com o que tem em casa.</p>
+            </header>
+            
+            <div class="card main-card">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h6 class="text-uppercase fw-black text-warning small tracking-widest mb-0">O seu Inventário</h6>
                 <button id="btn-limpar-tudo" class="btn btn-link btn-sm text-danger text-decoration-none fw-bold p-0 d-none">
                     Esvaziar Tudo ×
                 </button>
@@ -42,7 +40,7 @@
 
             <div id="lista-tags" class="d-flex flex-wrap"></div>
         </div>
-
+        
         <section class="mb-5">
             <div class="d-flex justify-content-between align-items-end mb-4 px-2">
                 <h4 id="status-busca" class="fw-black mb-0 text-dark">Aguardando ingredientes...</h4>
@@ -72,8 +70,10 @@
             </div>
         </div>
     </div>
-
+    
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Ficheiro JS Externo -->
+    <script src="script.js"></script>
 </body>
 </html>
