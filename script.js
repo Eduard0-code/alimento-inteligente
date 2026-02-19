@@ -1,12 +1,15 @@
 /**
- * Chef Local - Versão para GitHub Pages
- * "Flavor": Pronto para o estrelato e sem dependência de servidores locais!
+ * Chef Local - Versão para GitHub Pages (Resiliente)
+ * "Flavor": Se a cozinha está silenciosa demais, vamos fazer barulho para descobrir o porquê!
  */
+
+console.log("Chef Local: Script iniciado..."); // Log imediato para confirmar execução
 
 let baseReceitas = [];
 let sinonimos = {};
 let meusIngredientes = [];
 
+// Elementos do DOM
 const form = document.getElementById('form-ingrediente');
 const input = document.getElementById('ingrediente-input');
 const listaTags = document.getElementById('lista-tags');
@@ -14,16 +17,23 @@ const gridReceitas = document.getElementById('grid-receitas');
 const statusBusca = document.getElementById('status-busca');
 const contador = document.getElementById('contador-receitas');
 const btnLimpar = document.getElementById('btn-limpar-tudo');
-const bootstrapModal = new bootstrap.Modal(document.getElementById('recipeModal'));
+
+// Garantir que o Bootstrap Modal existe antes de tentar instanciar
+let bootstrapModal;
+try {
+    bootstrapModal = new bootstrap.Modal(document.getElementById('recipeModal'));
+} catch (e) {
+    console.error("Erro ao carregar Bootstrap Modal:", e);
+}
 
 /**
  * Carrega os dados do arquivo estático receitas.json
- * Nota: No GitHub Pages, caminhos relativos são essenciais.
  */
 async function carregarDados() {
+    console.log("Chef Local: Tentando carregar receitas.json...");
     try {
-        // Tentamos carregar sem o ponto inicial para evitar problemas de roteamento no GH Pages
-        const resposta = await fetch('receitas.json'); 
+        // Usamos um timestamp para evitar cache do navegador durante testes
+        const resposta = await fetch(`receitas.json?v=${new Date().getTime()}`); 
         
         if (!resposta.ok) {
             throw new Error(`Erro HTTP! Status: ${resposta.status}`);
@@ -33,11 +43,16 @@ async function carregarDados() {
         baseReceitas = dados.receitas || [];
         sinonimos = dados.sinonimos || {};
         
-        console.log("Chef Local: Livro de receitas carregado com sucesso!");
-        statusBusca.innerText = "Aguardando ingredientes...";
+        console.log("Chef Local: Banco de dados carregado!", dados);
+        if (statusBusca) statusBusca.innerText = "Ingredientes prontos para a mistura!";
     } catch (erro) {
-        console.error("Erro na cozinha:", erro);
-        statusBusca.innerHTML = `<span class="text-danger">Erro ao carregar receitas. Certifique-se de que o arquivo 'receitas.json' foi enviado para o GitHub.</span>`;
+        console.error("Erro fatal na cozinha:", erro);
+        if (statusBusca) {
+            statusBusca.innerHTML = `<div class="alert alert-danger">
+                <strong>Erro de Conexão:</strong> Não conseguimos ler o arquivo de receitas. 
+                Verifique se o arquivo <code>receitas.json</code> está na raiz do seu repositório.
+            </div>`;
+        }
     }
 }
 
@@ -74,13 +89,14 @@ window.removerIngrediente = (idx) => {
 };
 
 function renderizarTags() {
+    if (!listaTags) return;
     listaTags.innerHTML = meusIngredientes.map((ing, i) => `
         <div class="tag-pill">
             ${ing}
             <button type="button" onclick="removerIngrediente(${i})">×</button>
         </div>
     `).join('');
-    btnLimpar.classList.toggle('d-none', meusIngredientes.length === 0);
+    if (btnLimpar) btnLimpar.classList.toggle('d-none', meusIngredientes.length === 0);
 }
 
 function buscarReceitas() {
@@ -100,8 +116,8 @@ function buscarReceitas() {
         return { ...rec, percent, faltam };
     }).filter(r => r.percent > 0).sort((a, b) => b.percent - a.percent);
 
-    contador.innerText = `${resultados.length} Sugestões`;
-    statusBusca.innerText = "Sugestões para o seu cardápio:";
+    if (contador) contador.innerText = `${resultados.length} Sugestões`;
+    if (statusBusca) statusBusca.innerText = "Sugestões para o seu cardápio:";
 
     gridReceitas.innerHTML = resultados.map(rec => `
         <div class="col-12 col-md-6 col-lg-4">
@@ -153,7 +169,7 @@ window.abrirDetalhes = (rec) => {
             </div>
         </div>
     `;
-    bootstrapModal.show();
+    if (bootstrapModal) bootstrapModal.show();
 };
 
 function renderizarInterface() {
@@ -161,7 +177,12 @@ function renderizarInterface() {
     buscarReceitas();
 }
 
-carregarDados().then(() => {
-    form.addEventListener('submit', adicionarIngrediente);
-    btnLimpar.onclick = () => { meusIngredientes = []; renderizarInterface(); };
-});
+// Inicialização com logs de progresso
+window.onload = () => {
+    console.log("Chef Local: Página carregada. Iniciando fetch de dados...");
+    carregarDados().then(() => {
+        if (form) form.addEventListener('submit', adicionarIngrediente);
+        if (btnLimpar) btnLimpar.onclick = () => { meusIngredientes = []; renderizarInterface(); };
+        renderizarInterface();
+    });
+};
