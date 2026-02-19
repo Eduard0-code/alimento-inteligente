@@ -1,13 +1,17 @@
 {
 "sinonimos": {
-"carne": ["carne moída", "carne picada", "bife", "carne de vaca", "patinho", "alcatra", "moída"],
-"macarrão": ["massa", "esparguete", "penne", "fusilli", "talharim", "miojo"],
-"pão": ["pães", "baguete", "bisnaga", "pão francês", "pão de forma"],
-"leite": ["leite integral", "leite desnatado", "leite de vaca"],
-"açúcar": ["acucar", "açucar", "adocante"],
-"manteiga": ["margarina", "gordura"],
-"ovo": ["ovos"],
-"chocolate": ["cacau", "nescau", "toddy", "achocolatado"]
+"carne": ["carne moída", "carne picada", "bife", "carne de vaca", "patinho", "alcatra", "moída", "fraldinha"],
+"macarrão": ["massa", "esparguete", "penne", "fusilli", "talharim", "miojo", "macarrao"],
+"pão": ["pães", "baguete", "bisnaga", "pão francês", "pão de forma", "pao", "cacete"],
+"leite": ["leite integral", "leite desnatado", "leite de vaca", "leite fresco"],
+"açúcar": ["acucar", "açucar", "adocante", "açúcar mascavado"],
+"manteiga": ["margarina", "gordura", "manteiga com sal"],
+"ovo": ["ovos", "ovo de galinha"],
+"chocolate": ["cacau", "nescau", "toddy", "achocolatado", "chocolate em pó"],
+"queijo": ["muçarela", "queijo prato", "parmesão", "queijo ralado", "mussarela"],
+"tomate": ["molho de tomate", "pomodoro", "tomates"],
+"frango": ["peito de frango", "frango desfiado", "sobrecoxa"],
+"arroz": ["arroz branco", "arroz agulhinha"]
 },
 "receitas": [
 {
@@ -57,6 +61,54 @@
 "ingredientes": ["farinha", "chocolate", "açúcar", "leite", "ovo"],
 "preparo": "Misture os secos e depois adicione os líquidos. Bata bem até ficar homogêneo. Asse por 40 minutos em fôrma untada.",
 "tempo": "50 min"
+},
+{
+"nome": "Arroz Soltinho",
+"ingredientes": ["arroz", "alho", "sal", "azeite"],
+"preparo": "Refogue o alho no azeite, adicione o arroz e sele os grãos. Cubra com água fervente (2 medidas de água para 1 de arroz) e cozinhe em fogo baixo até secar.",
+"tempo": "20 min"
+},
+{
+"nome": "Fricassê de Frango Express",
+"ingredientes": ["frango", "milho", "creme de leite", "queijo"],
+"preparo": "Bata o milho com o creme de leite. Misture com o frango desfiado temperado. Cubra com queijo e leve ao forno até gratinar.",
+"tempo": "25 min"
+},
+{
+"nome": "Pão com Ovo Gourmet",
+"ingredientes": ["pão", "ovo", "manteiga", "queijo"],
+"preparo": "Faça um buraco no centro da fatia de pão. Coloque na frigideira com manteiga, quebre o ovo no buraco e cubra com queijo até derreter.",
+"tempo": "8 min"
+},
+{
+"nome": "Macarrão com Molho de Tomate",
+"ingredientes": ["macarrão", "tomate", "alho", "azeite"],
+"preparo": "Cozinhe o macarrão. Refogue alho e tomates picados (ou molho) no azeite. Misture tudo e sirva quente.",
+"tempo": "15 min"
+},
+{
+"nome": "Batata Rústica",
+"ingredientes": ["batata", "azeite", "sal", "alho"],
+"preparo": "Corte as batatas em gomos, misture com azeite, sal e dentes de alho amassados. Leve ao forno alto por 30-40 minutos até dourar.",
+"tempo": "40 min"
+},
+{
+"nome": "Carne Moída com Batata",
+"ingredientes": ["carne", "batata", "tomate", "alho"],
+"preparo": "Refogue a carne com alho. Adicione batatas em cubos pequenos e um pouco de molho de tomate. Cozinhe até as batatas ficarem macias.",
+"tempo": "30 min"
+},
+{
+"nome": "Mousse de Chocolate 2 Ingredientes",
+"ingredientes": ["chocolate", "creme de leite"],
+"preparo": "Derreta o chocolate e misture suavemente com o creme de leite. Leve à geladeira por pelo menos 2 horas.",
+"tempo": "10 min"
+},
+{
+"nome": "Panqueca de Banana Fit",
+"ingredientes": ["banana", "ovo"],
+"preparo": "Amasse a banana e misture bem com o ovo. Cozinhe colheradas da massa em uma frigideira antiaderente untada até dourar os dois lados.",
+"tempo": "10 min"
 }
 ]
 }
