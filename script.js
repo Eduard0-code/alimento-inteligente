@@ -22,18 +22,22 @@ const bootstrapModal = new bootstrap.Modal(document.getElementById('recipeModal'
  */
 async function carregarDados() {
     try {
-        // Buscamos o arquivo JSON que está na mesma pasta do projeto
-        const resposta = await fetch('./receitas.json'); 
-        if (!resposta.ok) throw new Error('Não foi possível carregar o JSON');
+        // Tentamos carregar sem o ponto inicial para evitar problemas de roteamento no GH Pages
+        const resposta = await fetch('receitas.json'); 
+        
+        if (!resposta.ok) {
+            throw new Error(`Erro HTTP! Status: ${resposta.status}`);
+        }
         
         const dados = await resposta.json();
         baseReceitas = dados.receitas || [];
         sinonimos = dados.sinonimos || {};
         
         console.log("Chef Local: Livro de receitas carregado com sucesso!");
+        statusBusca.innerText = "Aguardando ingredientes...";
     } catch (erro) {
         console.error("Erro na cozinha:", erro);
-        statusBusca.innerText = "Houve um problema ao carregar as receitas. Verifique o console.";
+        statusBusca.innerHTML = `<span class="text-danger">Erro ao carregar receitas. Certifique-se de que o arquivo 'receitas.json' foi enviado para o GitHub.</span>`;
     }
 }
 
@@ -135,7 +139,7 @@ window.abrirDetalhes = (rec) => {
             <div class="col-12">
                 <p class="text-uppercase small fw-black text-warning mb-3 tracking-widest">Ingredientes</p>
                 <div class="row g-2">
-                    ${rec.ingredients ? '' : rec.ingredientes.map(i => {
+                    ${rec.ingredientes.map(i => {
                         const tem = meusNormalizados.includes(normalizar(i));
                         return `<div class="col-6"><div class="p-3 border rounded-4 d-flex align-items-center ${tem ? 'bg-success-subtle border-success-subtle' : 'bg-light'}">
                             <span class="me-2">${tem ? '✅' : '❌'}</span><span class="small fw-bold text-capitalize">${i}</span>
