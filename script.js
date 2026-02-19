@@ -1,12 +1,12 @@
 /**
- * Lógica do Chef Local - Agora com carregamento via JSON
+ * Chef Local - Versão para GitHub Pages
+ * "Flavor": Pronto para o estrelato e sem dependência de servidores locais!
  */
 
 let baseReceitas = [];
 let sinonimos = {};
 let meusIngredientes = [];
 
-// Seletores DOM
 const form = document.getElementById('form-ingrediente');
 const input = document.getElementById('ingrediente-input');
 const listaTags = document.getElementById('lista-tags');
@@ -17,24 +17,26 @@ const btnLimpar = document.getElementById('btn-limpar-tudo');
 const bootstrapModal = new bootstrap.Modal(document.getElementById('recipeModal'));
 
 /**
- * Carrega os dados do arquivo JSON externo
+ * Carrega os dados do arquivo estático receitas.json
+ * Nota: No GitHub Pages, caminhos relativos são essenciais.
  */
 async function carregarDados() {
     try {
-        const resposta = await fetch('receitas.json');
+        // Buscamos o arquivo JSON que está na mesma pasta do projeto
+        const resposta = await fetch('./receitas.json'); 
+        if (!resposta.ok) throw new Error('Não foi possível carregar o JSON');
+        
         const dados = await resposta.json();
-        baseReceitas = dados.receitas;
-        sinonimos = dados.sinonimos;
-        console.log("Dados carregados com sucesso!");
+        baseReceitas = dados.receitas || [];
+        sinonimos = dados.sinonimos || {};
+        
+        console.log("Chef Local: Livro de receitas carregado com sucesso!");
     } catch (erro) {
-        console.error("Erro ao carregar receitas:", erro);
-        statusBusca.innerText = "Erro ao carregar o livro de receitas.";
+        console.error("Erro na cozinha:", erro);
+        statusBusca.innerText = "Houve um problema ao carregar as receitas. Verifique o console.";
     }
 }
 
-/**
- * Normaliza o termo de busca usando o dicionário de sinônimos carregado
- */
 function normalizar(item) {
     const termo = item.trim().toLowerCase();
     for (const [oficial, variacoes] of Object.entries(sinonimos)) {
@@ -95,7 +97,7 @@ function buscarReceitas() {
     }).filter(r => r.percent > 0).sort((a, b) => b.percent - a.percent);
 
     contador.innerText = `${resultados.length} Sugestões`;
-    statusBusca.innerText = "Sugestões deliciosas:";
+    statusBusca.innerText = "Sugestões para o seu cardápio:";
 
     gridReceitas.innerHTML = resultados.map(rec => `
         <div class="col-12 col-md-6 col-lg-4">
@@ -111,7 +113,7 @@ function buscarReceitas() {
                     <div class="progress-bar ${rec.percent === 100 ? 'bg-success' : 'bg-warning'}" style="width: ${rec.percent}%"></div>
                 </div>
                 <p class="small text-muted mb-0">
-                    ${rec.percent === 100 ? '<span class="text-success fw-bold">Você tem tudo!</span>' : `Faltam: ${rec.faltam.join(', ')}`}
+                    ${rec.percent === 100 ? '<span class="text-success fw-bold">Tens tudo!</span>' : `Faltam: ${rec.faltam.join(', ')}`}
                 </p>
             </div>
         </div>
@@ -133,7 +135,7 @@ window.abrirDetalhes = (rec) => {
             <div class="col-12">
                 <p class="text-uppercase small fw-black text-warning mb-3 tracking-widest">Ingredientes</p>
                 <div class="row g-2">
-                    ${rec.ingredientes.map(i => {
+                    ${rec.ingredients ? '' : rec.ingredientes.map(i => {
                         const tem = meusNormalizados.includes(normalizar(i));
                         return `<div class="col-6"><div class="p-3 border rounded-4 d-flex align-items-center ${tem ? 'bg-success-subtle border-success-subtle' : 'bg-light'}">
                             <span class="me-2">${tem ? '✅' : '❌'}</span><span class="small fw-bold text-capitalize">${i}</span>
@@ -155,7 +157,6 @@ function renderizarInterface() {
     buscarReceitas();
 }
 
-// Inicialização
 carregarDados().then(() => {
     form.addEventListener('submit', adicionarIngrediente);
     btnLimpar.onclick = () => { meusIngredientes = []; renderizarInterface(); };
